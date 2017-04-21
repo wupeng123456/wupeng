@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>cookie欢迎回来</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		//通过键获取值（从cookie字符串中截取出用户名）
+		function getCookie(name){
+			//判断cookie变量值是否存在
+			if(document.cookie.length > 0){
+				//如果有值 ‘account=123；name=张三；password=111’
+				//获取键在字符串中的索引（这个键值对的开始索引）
+				var start = document.cookie.indexOf(name + '=')
+				//如果存在这个键值对
+				if(start ! = -1){
+					start = start + name.length + 1
+					//获取 值 结束为止的索引（n）定位到值的位置（张）
+					//参数二是，开始查找的索引，从参数而这个索引开始查找，找到第一个分号的索引，返回
+					var end = document.cookie.indexOf(';',start)
+					//如果值是在最后一个键值队中，最后是没有分号的
+					if(end == -1){
+						end = document.cookie.length
+					}
+					//从cookie字符串中截取name对应的值
+					var value = 
+				}else{
+					//如果不存在这个键值对
+					return ''
+				}
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>cookie存储</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		//cookie:他是存储在本地浏览器的一个变量,他的值一般是字符串,当用户通过浏览器访问页面时,可以用cookie这个变量记录用户的信息,当下一次请求页面时,可以从cookie中获取之前的信息(不同的浏览器的cookie数据不互通)
+		//例如:设置一个欢迎的信息
+//		window.onload = function(){
+//			//获取cookie变量的值
+//			var cookie = document.cookie;
+//			//判断是否有值
+//			if(!cookie){
+//				//弹出输入框,输入用户信息
+//				var value = prompt('请输入你的名字:','')//警告输入框
+//				//把用户信息存到cookie中
+//				document.cookie = value
+//			}else{
+//				alert('欢迎回来 '+ cookie + '!')
+//			}
+//		}
+//1,cookie 添加数据
+console.log(document.cookie)
+//cookie 添加数据时是以键值对的基本形式添加的，会把添加的值拼接到cookie原来的值之后
+document.cookie = 'name：zhangsan'
+console.log(document.cookie)
+//cookie添加数据时，可以给数据设置有效期
+//数据在有效期之前能用，到达有效期自动删除
+console.log(new Date())
+document.cookie = 'count=123，expires=Wed Mar 01 2017 17:44:21 GMT+0800'
+console.log(document.cookie)
+//2，修改数据
+//cookie数据是以键值的形式存放，所以要修改数据，只需要键相同
+document.cookie = 'xiaoming'
+console.log(document.cookie)
+//如果只写值，没写键，那么默认时''
+//3，cookie值的删除，重新设置数据的有效期，把时间设置在当前时间之前，就会自动删除
+document.cookie = 'name=xiaoming；expires=Wed Mar 01 2017 17:44:21 GMT+0800'
+console.log(document.cookie)
+	</script>
+</html>
