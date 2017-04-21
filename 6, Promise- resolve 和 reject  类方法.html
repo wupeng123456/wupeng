@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="刘亚彬">
+		<title>Promise - resolve() 和 reject()  类方法</title>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		
+//		Promise 构造函数有两个类方法用于创建promise对象
+//		resolve() 方法 : 用于创建resolve状态的对象
+		
+		//1,如果参数是promise对象
+//		var p = new Promise(function(resolve,reject){
+////			resolve('成功的信息')
+//			reject('失败的信息')
+//		})
+//		var p1 = Promise.resolve(p)
+//		p1.then(function(value){
+//			console.log(value + '====成功1')
+//		}).catch(function(error){
+//			console.log(error + '====失败1')
+//		})
+//		//如果参数是promise对象,那么不进行操作,直接返回这个promise对象, 因为promise对象的状态一旦确定,不可更改
+//		
+//		
+//		//2, 如果参数不是promise对象或者没有参数, 
+////		var p2 = Promise.resolve('123')
+//		var p2 = Promise.resolve()
+//		p2.then(function(value){
+//			console.log(value + '====成功2')
+//		}).catch(function(error){
+//			console.log(error + '====失败2')
+//		})
+//		//如果参数不是promise对象或者没有参数,会生成一个状态为resolve状态的promise对象,回调函数的参数是resolve方法的参数
+//		
+//		
+//		//3, 如果参数是一个js对象,而且这个对象中有then方法
+//		var object = {
+//			then : function(resolve,reject){
+////				resolve('成功的信息')
+//				reject('失败的信息')
+//			}
+//		}
+//		var p3 = Promise.resolve(object)
+//		p3.then(function(value){
+//			console.log(value + '====成功3')
+//		}).catch(function(error){
+//			console.log(error + '====失败3')
+//		})
+		//如果参数是一个js对象,而且这个对象中有then方法, 得到的promise对象的状态由js对象的then方法中返回的状态决定
+		
+		
+		
+		
+		//reject() 方法  : 用于创建reject状态的对象
+		//用法基本和resolve()方法类似, 但是有一点点区别
+		
+		var p = new Promise(function(resolve,reject){
+//			resolve('成功的信息')
+			reject('失败的信息')
+		})
+		var p1 = Promise.reject(p)
+		p1.then(function(value){
+			console.log(value + '====成功1')
+		},function(error){
+			console.log(error + '====错误1')
+		})
+		//1,如果参数是promise对象,那么不进行操作,直接返回这个promise对象,如果参数对象是reject状态,会抛出错误
+		
+		
+		
+		var p2 = Promise.reject('123')
+//		var p2 = Promise.reject()
+		p2.then(function(value){
+			console.log(value + '====成功2')
+		}).catch(function(error){
+			console.log(error + '====失败2')
+		})
+		//2,如果参数不是promise对象或者没有参数,会生成一个状态为reject状态的promise对象,回调函数的参数是reject方法的参数, 会在控制台抛出错误
+		
+		
+		
+		
+		var object = {
+			then : function(resolve,reject){
+				resolve('成功的信息')
+//				reject('失败的信息')
+			}
+		}
+		var p3 = Promise.reject(object)
+		p3.then(function(value){
+			console.log(value + '====成功3')
+		}).catch(function(error){
+			//参数是object对象
+			console.log(error + '====失败3')
+		})
+		//3, 如果参数是一个js对象,而且这个对象中有then方法, 得到的promise对象的状态仍然是reject状态 ,而且会抛出错误
+		
+	</script>
+</html>

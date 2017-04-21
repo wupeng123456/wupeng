@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="刘亚彬">
+		<title>then方法的链式调用</title>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		
+		var p1 = new Promise(function(resolve,reject){
+			setTimeout(function(){
+				if(Math.random()>0.5){
+					resolve('买到地了')
+				}else{
+					reject('没买到地')
+				}
+			},Math.random()*1000)
+		})
+		p1.then(function(){
+			var p2 = new Promise(function(resolve,reject){
+				setTimeout(function(){
+					if(Math.random()>0.5){
+						resolve('买到建筑材料了')
+					}else{
+						reject('没买到建筑材料')
+					}
+				},Math.random()*1000)
+			})
+			return p2 ;
+			
+		}).then(function(){
+			var p3 = new Promise(function(resolve,reject){
+				setTimeout(function(){
+					if(Math.random()>0.5){
+						resolve('建造房子成功')
+					}else{
+						reject('建造房子失败')
+					}
+				},Math.random()*1000)
+			})
+			return p3
+			
+		}).then(function(value){
+			console.log(value)
+		}).catch(function(error){
+			console.log(error)
+		})
+	/*
+	 上边的例子中,then方法都是只写了成功状态的回调函数,当p1成功时,会执行第一个then方法,当p2成功时,会执行第二个then方法,当p3成功时,会执行第三个then方法,
+	 
+	 如果p1,p2,p3某一个失败了,最后的catch()方法会立即捕捉到错误信息
+	 
+	 catch(错误状态的函数)  相当于  then( null, 错误状态的函数)
+	 
+	 在then()方法的链式调用中,不建议在then方法中写失败状态的回调函数, 而是建议在调用链最后使用catch()方法捕捉失败状态   
+	 */
+		
+		//then方法支持链式调用,因为then方法的最后会返回一个新的promise对象(如上例所示) 
+		
+		
+		//如果then方法最后没有返回一个promise对象,那么then方法内部会自动生成一个primise对象
+		//如果then方法的返回值不是promise对象,那么then方法内部会把这个返回值自动包裹成一个resolve状态的promise对象, 下面举例帮助理解:
+		
+		var p1 = new Promise(function(resolve,reject){
+			setTimeout(function(){
+				if(Math.random()>0.5){
+					resolve('买到地了')
+				}else{
+					reject('没买到地')
+				}
+			},Math.random()*1000)
+		})
+		p1.then(function(value){
+			console.log(value)
+			//在这里返回一个字符串,而不是promise对象
+//			return value ;
+		},function(error){
+			console.log(error)
+			return error ;
+			
+		}).then(function(value){
+			console.log('接收到成功的promise' + value)
+		},function(error){
+			console.log('接收到失败的promise' + error)
+		})
+		
+		
+		//你会发现不管第一个then方法执行的是成功还是失败的回调,第二个then方法执行的一直都是成功的回调函数
+		//原因: 第一个then方法中的回调函数的返回值无论是 value 还是 error 还是 null 均不是promise 对象, 所以then方法内部会帮我们包裹一个resolve状态的promise对象,然后用这个对象链式调用第二个then方法 
+		//既然是resolve状态的promise对象,那么必然会调用成功的回调函数
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</script>
+</html>
